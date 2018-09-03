@@ -7,11 +7,15 @@ class UserException(Exception):
 def user_exception(s): raise UserException(s)
 
 class Macro:
+  """Represents a macro to be run"""
   def __init__(self, code):
+    """code: int - index of macro to run"""
     self.code = code
 
 class Command:
+  """Represents a macro to be run"""
   def __init__(self, command):
+    """command: string - command to send"""
     self.command = command
     
 class HomeVisionController:
@@ -26,9 +30,23 @@ class HomeVisionController:
     process_actions={},
     var_queries={},
     flag_queries={},
-    flag_return_values = {True: ["True", "On", "Yes", "Occupied", "Set"], False: ["False", "Off", "No", "Vacant", "Clear"]},
+    flag_return_values = {True: ["True", "On", "Yes", "Occupied", "Set", "1"], False: ["False", "Off", "No", "Vacant", "Clear", "0"]},
     on_off_commands = None
   ):
+    """
+    Args:
+      ip_address: string
+      port: int
+      auth: string
+        - key for authenticating with netio
+      on_off_appliance_codes: dict[string] => int - codes to be fed to 'on_off_commands' for each appliance
+      actions: dict[string] => Macro/Command/(_, _, ...) - named actions to be completed
+      process_actions: dict[string] => {"START": X, "STOP": X} where X is Macro/Command/(_, _, ...) - named processes to be started and stopped
+      var_queries: dict[string] => int - mapping of names to variable indexes
+      flag_queries: dict[string] => int - mapping of names to flag indexes
+      flag_return_values: {True: [string], False: [string]} - synonyms for true and false that are returned by netio 'read flag command'. (ignore if you haven't set them up)
+      on_off_commands: {"ON": (int) => Macro/Command/(_, _, ...), "OFF": (int) => Macro/Command} - how to handle on and off commands
+    """
     self.ip_address = ip_address
     self.port = port
     self.auth = auth
@@ -166,12 +184,12 @@ class HomeVisionController:
   def _switch_on(self, code):
     if self.on_off_commands == None:
       raise Exception("No On/Off command set")
-    self._send_command(self.on_off_commands["ON"](code))
+    self._handle_action(self.on_off_commands["ON"](code))
    
   def _switch_off(self, code):
     if self.on_off_commands == None:
       raise Exception("No On/Off command set")
-    self._send_command(self.on_off_commands["OFF"](code))
+    self._handle_action(self.on_off_commands["OFF"](code))
 
   def _run_macro(self, code):
     self._send_command(b'action macro run ' + bytes(str(code), encoding="ascii") + b'; __wait 100')

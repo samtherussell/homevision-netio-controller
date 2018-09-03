@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="homevision-netio-controller",
-    version="0.1",
+    version="0.1.1",
     author="Jackoson",
     description="A python api for controlling a homevision system via the netio interface.",
     long_description=long_description,

@@ -17,3 +17,9 @@ controller = HomeVisionController("192.168.1.100", 9999, "f498m0M9j87Hj743RgK8HI
 
 controller.action_command({"command": "HOT WATER 1 HOUR"})
 ```
+
+For more information on NetIO visit it's [homepage](https://netioapp.com/en/)
+
+For more information on NetIO Homevision plugin visit the [website](http://hv.tclcode.com/netio.html)
+
+For more information on further commands see the help pages of the plugin.
