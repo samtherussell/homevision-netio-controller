@@ -4,7 +4,7 @@ A python api for controlling a homevision system via the netio interface.
 
 The commands are sent over the a socket to the netio server running in HomeVision XL.
 
-# # Quick Start:
+## Quick Start:
 
 Download from PyPI:
 ```bash
