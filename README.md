@@ -7,7 +7,9 @@ The commands are sent over the a socket to the netio server running in HomeVisio
 How to use:
 
 Download from PyPI with
+```bash
 pip install homevision-netio-controller
+```
 
 ```python
 from homevision_netio_controller import HomeVisionController, Macro
