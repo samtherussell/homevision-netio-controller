@@ -4,13 +4,14 @@ A python api for controlling a homevision system via the netio interface.
 
 The commands are sent over the a socket to the netio server running in HomeVision XL.
 
-How to use:
+# # Quick Start:
 
-Download from PyPI with
+Download from PyPI:
 ```bash
 pip install homevision-netio-controller
 ```
 
+Usage:
 ```python
 from homevision_netio_controller import HomeVisionController, Macro
 
